@@ -1,8 +1,7 @@
 /*
 
 ΕΛΛΗΝΙΚΑ ΜΗΝΥΜΑΤΑ ΣΤΟ HTML5 VALIDATION ΤΩΝ ΦΟΡΜΩΝ
-By Notis Fragopoulos
-https://webpage.gr
+By Stavros Tsourlidakis based on concept of Notis Fragopoulos (notis@webpage.gr)
 
 add a .req class to input you want to validate 
 add the HTML5 validation attribute (required, email, url, number)
@@ -17,14 +16,21 @@ var messages = {
     'number': 'Το πεδίο αυτό πρέπει να περιέχει αριθμητική τιμή',
 };
 
-$('.req').each(function(){ 
-    $(this).on('focus blur change', function () {
-        if (!$(this).val()) {
-            for(attr in messages){
-                if(this.hasAttribute(attr) || $(this).attr('type') == attr) this.setCustomValidity(messages[attr]);
-            }
-        }else{
+$('.req_field')
+    .on('focus blur change', function () {
+        // Everything looks good
+        if(this.checkValidity()){
             this.setCustomValidity('');
+            return;
         }
+
+        // Value is empty
+        if(this.validity.valueMissing){
+            this.setCustomValidity(messages.required || '');
+            return;
+        }
+
+        //Pattern is invalid
+        this.setCustomValidity(messages[this.attributes.type.value] || '');
+
     }).trigger('change');
-});
