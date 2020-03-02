@@ -16,7 +16,7 @@ var messages = {
     'number': 'Το πεδίο αυτό πρέπει να περιέχει αριθμητική τιμή',
 };
 
-$('.req_field')
+$('.req')
     .on('focus blur change', function () {
         // Everything looks good
         if(this.checkValidity()){
