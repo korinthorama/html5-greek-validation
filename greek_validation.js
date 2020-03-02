@@ -21,7 +21,7 @@ $('.req').each(function(){
     $(this).on('focus blur change', function () {
         if (!$(this).val()) {
             for(attr in messages){
-                if(this.hasAttribute(attr)) this.setCustomValidity(messages[attr]);
+                if(this.hasAttribute(attr) || $(this).attr('type') == attr) this.setCustomValidity(messages[attr]);
             }
         }else{
             this.setCustomValidity('');
